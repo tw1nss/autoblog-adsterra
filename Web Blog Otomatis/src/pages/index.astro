@@ -1,49 +1,287 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import Footer from '../components/Footer.astro';
+import PostCard from '../components/PostCard.astro';
+import Sidebar from '../components/Sidebar.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+const allPosts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+// Segment posts for magazine layout
+const heroMainPost = allPosts[0];
+const heroSubPosts = allPosts.slice(1, 3);
+const latestPosts = allPosts.slice(3, 9).length > 0 ? allPosts.slice(3, 9) : allPosts;
+const editorChoicePosts = allPosts.slice(0, 4);
+
+// Mock / derived categories for visual realism
+const categoryTags = ['Semua Berita', 'Nasional', 'Teknologi & AI', 'Finansial & Kripto', 'Bisnis Global', 'Kesehatan', 'Otomotif'];
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="id">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={`${SITE_TITLE} - Berita Terkini & Informasi Terpercaya`} description={SITE_DESCRIPTION} />
+		<style>
+			.main-wrapper {
+				padding: 2rem 0 4rem 0;
+			}
+
+			/* Hero Magazine Grid */
+			.hero-magazine-section {
+				margin-bottom: 2.5rem;
+			}
+
+			.hero-grid {
+				display: grid;
+				grid-template-columns: 1.4fr 1fr;
+				gap: 1.25rem;
+			}
+
+			.hero-grid-sub {
+				display: flex;
+				flex-direction: column;
+				gap: 1.25rem;
+			}
+
+			/* Category pills strip */
+			.category-strip {
+				background-color: var(--card-bg);
+				border: 1px solid var(--border-subtle);
+				border-radius: var(--radius-sm);
+				padding: 0.85rem 1.25rem;
+				margin-bottom: 2.5rem;
+				display: flex;
+				align-items: center;
+				gap: 1rem;
+				overflow-x: auto;
+				box-shadow: var(--shadow-subtle);
+			}
+
+			.category-strip-title {
+				font-size: 0.82rem;
+				font-weight: 800;
+				color: var(--primary-red);
+				text-transform: uppercase;
+				white-space: nowrap;
+				display: flex;
+				align-items: center;
+				gap: 0.4rem;
+			}
+
+			.category-pills-list {
+				display: flex;
+				align-items: center;
+				gap: 0.6rem;
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				white-space: nowrap;
+			}
+
+			.category-pill-link {
+				display: inline-block;
+				font-size: 0.82rem;
+				font-weight: 600;
+				padding: 0.35rem 0.85rem;
+				background-color: var(--body-bg);
+				color: var(--text-secondary);
+				border-radius: 20px;
+				transition: all var(--transition-fast);
+			}
+
+			.category-pill-link:hover, .category-pill-link.active {
+				background-color: var(--primary-red);
+				color: #ffffff;
+			}
+
+			/* Main 2-Column Content Layout */
+			.content-layout-grid {
+				display: grid;
+				grid-template-columns: 1fr 340px;
+				gap: 2.25rem;
+			}
+
+			/* Latest News Grid */
+			.latest-posts-grid {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 1.5rem;
+				margin-bottom: 3rem;
+			}
+
+			/* Editor's Choice Section */
+			.editors-choice-section {
+				margin-top: 3rem;
+				padding-top: 2.5rem;
+				border-top: 1px solid var(--border-light);
+			}
+
+			.editors-choice-grid {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				gap: 1.25rem;
+			}
+
+			/* Responsive Breakpoints */
+			@media (max-width: 992px) {
+				.hero-grid {
+					grid-template-columns: 1fr;
+				}
+				.content-layout-grid {
+					grid-template-columns: 1fr;
+				}
+				.editors-choice-grid {
+					grid-template-columns: repeat(2, 1fr);
+				}
+			}
+
+			@media (max-width: 650px) {
+				.latest-posts-grid {
+					grid-template-columns: 1fr;
+				}
+				.editors-choice-grid {
+					grid-template-columns: 1fr;
+				}
+			}
+		</style>
 	</head>
 	<body>
 		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+
+		<main class="main-wrapper">
+			<div class="container">
+				<!-- 1. Hero Magazine Grid (ThemeWagon News Style) -->
+				{heroMainPost && (
+					<section class="hero-magazine-section">
+						<div class="hero-grid">
+							<!-- Main Big Featured Card -->
+							<div class="hero-grid-main">
+								<PostCard
+									title={heroMainPost.data.title}
+									pubDate={heroMainPost.data.pubDate}
+									heroImage={heroMainPost.data.heroImage}
+									slug={heroMainPost.id}
+									description={heroMainPost.data.description}
+									category="UTAMA"
+									variant="large-overlay"
+								/>
+							</div>
+
+							<!-- 2 Stacked Sub Featured Cards -->
+							<div class="hero-grid-sub">
+								{heroSubPosts.map((post, idx) => (
+									<PostCard
+										title={post.data.title}
+										pubDate={post.data.pubDate}
+										heroImage={post.data.heroImage}
+										slug={post.id}
+										category={idx === 0 ? "TRENDING" : "SOROTAN"}
+										variant="overlay"
+									/>
+								))}
+							</div>
+						</div>
+					</section>
+				)}
+
+				<!-- 2. Topic/Category Strip -->
+				<div class="category-strip">
+					<span class="category-strip-title">
+						<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+						Topik Pilihan:
+					</span>
+					<ul class="category-pills-list">
+						{categoryTags.map((tag, i) => (
+							<li>
+								<a href="/blog" class={`category-pill-link ${i === 0 ? 'active' : ''}`}>{tag}</a>
+							</li>
+						))}
+					</ul>
+				</div>
+
+				<!-- 3. Main Content: Latest News + Sidebar -->
+				<div class="content-layout-grid">
+					<!-- Left Column: News stream -->
+					<div class="main-content-column">
+						<!-- Section Header -->
+						<div class="section-header">
+							<h2 class="section-title">Berita Terkini</h2>
+							<a href="/blog" class="section-more-link">
+								Lihat Semua Arsip
+								<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+							</a>
+						</div>
+
+						<!-- Latest Posts Grid -->
+						<div class="latest-posts-grid">
+							{latestPosts.map((post, index) => {
+								const categories = ['TEKNOLOGI', 'BISNIS', 'NASIONAL', 'FINANSIAL', 'KESEHATAN', 'LIFESTYLE'];
+								const cat = categories[index % categories.length];
+								return (
+									<PostCard
+										title={post.data.title}
+										pubDate={post.data.pubDate}
+										heroImage={post.data.heroImage}
+										slug={post.id}
+										description={post.data.description}
+										category={cat}
+										variant="grid"
+									/>
+								);
+							})}
+						</div>
+
+						<!-- Section Header: Analisis & Opini -->
+						<div class="section-header">
+							<h2 class="section-title">Laporan Khusus & Analisis</h2>
+						</div>
+
+						<div class="compact-analysis-list" style="background: var(--card-bg); padding: 1.5rem; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); margin-bottom: 2rem;">
+							{allPosts.slice(0, 4).map((post) => (
+								<PostCard
+									title={post.data.title}
+									pubDate={post.data.pubDate}
+									heroImage={post.data.heroImage}
+									slug={post.id}
+									variant="compact"
+								/>
+							))}
+						</div>
+					</div>
+
+					<!-- Right Column: Sidebar -->
+					<Sidebar posts={allPosts} />
+				</div>
+
+				<!-- 4. Bottom Editors Choice / Rekomendasi Section -->
+				<section class="editors-choice-section">
+					<div class="section-header">
+						<h2 class="section-title">Pilihan Redaksi</h2>
+						<a href="/blog" class="section-more-link">Semua Pilihan &rarr;</a>
+					</div>
+					<div class="editors-choice-grid">
+						{editorChoicePosts.map((post, idx) => {
+							const cats = ['SOROTAN', 'INSPIRASI', 'EDUKASI', 'TRENDING'];
+							return (
+								<PostCard
+									title={post.data.title}
+									pubDate={post.data.pubDate}
+									heroImage={post.data.heroImage}
+									slug={post.id}
+									category={cats[idx % cats.length]}
+									variant="grid"
+								/>
+							);
+						})}
+					</div>
+				</section>
+			</div>
 		</main>
+
 		<Footer />
 	</body>
 </html>

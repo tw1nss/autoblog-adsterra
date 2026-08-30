@@ -1,0 +1,15 @@
+# Environment and Secrets
+*.gs
+autoblog.gs
+.env
+.env.*
+
+# Astro / Build outputs
+dist/
+.astro/
+node_modules/
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/

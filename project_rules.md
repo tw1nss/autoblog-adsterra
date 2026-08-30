@@ -11,15 +11,14 @@
 Semua output artikel yang dihasilkan oleh sistem AI HARUS mematuhi struktur ini tanpa pengecualian:
 - DILARANG menyertakan teks percakapan, basa-basi pembuka, atau penutup (misal: "Berikut adalah artikelnya..."). 
 - Karakter pertama dari output haruslah `---` untuk membuka YAML Frontmatter.
-- Frontmatter wajib memuat variabel: `title`, `slug`, `date`, `category`, `tags`.
+- Frontmatter wajib memuat variabel: `title`, `description`, `pubDate`, `heroImage`.
 
 **Template Standar Output AI:**
 ---
 title: "[Judul Artikel SEO Friendly]"
-slug: "[judul-artikel-seo-friendly]"
-date: YYYY-MM-DD
-category: "[Teknologi/Sport/Pendidikan/News]"
-tags: ["tag1", "tag2", "tag3"]
+description: "[Deskripsi singkat artikel, maksimal 150 karakter]"
+pubDate: YYYY-MM-DD
+heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 [Isi artikel dalam format Markdown murni. Gunakan H2 (##) dan H3 (###) untuk sub-judul. Pertahankan paragraf tetap pendek, gunakan format list/bullet points untuk mempermudah pembacaan cepat (scannability).]
 

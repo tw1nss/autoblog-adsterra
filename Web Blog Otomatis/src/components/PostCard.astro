@@ -1,0 +1,122 @@
+---
+import { Image } from 'astro:assets';
+import CategoryBadge from './CategoryBadge.astro';
+import FormattedDate from './FormattedDate.astro';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+	title: string;
+	pubDate: Date;
+	heroImage?: ImageMetadata | string;
+	slug: string;
+	description?: string;
+	category?: string;
+	variant?: 'grid' | 'compact' | 'overlay' | 'large-overlay';
+}
+
+const {
+	title,
+	pubDate,
+	heroImage,
+	slug,
+	description,
+	category = 'BERITA',
+	variant = 'grid'
+} = Astro.props;
+
+const postUrl = `/blog/${slug}/`;
+---
+
+{variant === 'overlay' && (
+	<article class="overlay-card" style="height: 100%; min-height: 240px;">
+		<a href={postUrl} style="display: block; width: 100%; height: 100%;">
+			{heroImage && typeof heroImage !== 'string' ? (
+				<Image src={heroImage} alt={title} width={600} height={380} class="card-img" />
+			) : typeof heroImage === 'string' ? (
+				<img src={heroImage} alt={title} class="card-img" loading="lazy" />
+			) : (
+				<div class="card-img" style="background: linear-gradient(135deg, #1e293b, #0f172a); width: 100%; height: 100%;"></div>
+			)}
+			<div class="card-content">
+				<CategoryBadge category={category} />
+				<h3 class="card-title" style="font-size: 1.15rem;">{title}</h3>
+				<div class="card-meta">
+					<span><FormattedDate date={pubDate} /></span>
+				</div>
+			</div>
+		</a>
+	</article>
+)}
+
+{variant === 'large-overlay' && (
+	<article class="overlay-card" style="height: 100%; min-height: 480px;">
+		<a href={postUrl} style="display: block; width: 100%; height: 100%;">
+			{heroImage && typeof heroImage !== 'string' ? (
+				<Image src={heroImage} alt={title} width={800} height={520} class="card-img" />
+			) : typeof heroImage === 'string' ? (
+				<img src={heroImage} alt={title} class="card-img" loading="lazy" />
+			) : (
+				<div class="card-img" style="background: linear-gradient(135deg, #1e293b, #0f172a); width: 100%; height: 100%;"></div>
+			)}
+			<div class="card-content" style="padding: 2.25rem;">
+				<CategoryBadge category={category} />
+				<h2 class="card-title" style="font-size: 1.75rem; margin: 0.75rem 0;">{title}</h2>
+				{description && <p style="color: rgba(255,255,255,0.85); font-size: 0.95rem; margin-bottom: 0.75rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">{description}</p>}
+				<div class="card-meta">
+					<span>Oleh Redaksi</span>
+					<span>•</span>
+					<span><FormattedDate date={pubDate} /></span>
+				</div>
+			</div>
+		</a>
+	</article>
+)}
+
+{variant === 'compact' && (
+	<article class="compact-news-item">
+		<a href={postUrl} class="item-thumb">
+			{heroImage && typeof heroImage !== 'string' ? (
+				<Image src={heroImage} alt={title} width={150} height={110} />
+			) : typeof heroImage === 'string' ? (
+				<img src={heroImage} alt={title} loading="lazy" />
+			) : (
+				<div style="background-color: #cbd5e1; width: 100%; height: 100%;"></div>
+			)}
+		</a>
+		<div class="item-content">
+			<h4 class="item-title">
+				<a href={postUrl}>{title}</a>
+			</h4>
+			<div class="item-meta">
+				<FormattedDate date={pubDate} />
+			</div>
+		</div>
+	</article>
+)}
+
+{variant === 'grid' && (
+	<article class="news-card">
+		<div class="card-thumb-wrap">
+			<CategoryBadge category={category} />
+			<a href={postUrl} style="display: block; width: 100%; height: 100%;">
+				{heroImage && typeof heroImage !== 'string' ? (
+					<Image src={heroImage} alt={title} width={450} height={280} />
+				) : typeof heroImage === 'string' ? (
+					<img src={heroImage} alt={title} loading="lazy" />
+				) : (
+					<div style="background-color: #e2e8f0; width: 100%; height: 100%;"></div>
+				)}
+			</a>
+		</div>
+		<div class="card-body">
+			<h3 class="card-title">
+				<a href={postUrl}>{title}</a>
+			</h3>
+			{description && <p class="card-excerpt">{description}</p>}
+			<div class="card-footer-meta">
+				<span><FormattedDate date={pubDate} /></span>
+				<a href={postUrl} style="color: var(--primary-red); font-weight: 600; font-size: 0.8rem;">Baca Selengkapnya &rarr;</a>
+			</div>
+		</div>
+	</article>
+)}

@@ -1,0 +1,29 @@
+---
+interface Props {
+	category?: string;
+	color?: 'red' | 'blue' | 'green' | 'orange' | 'purple' | 'dark';
+}
+
+const { category = 'NEWS', color } = Astro.props;
+
+// Automatically map category names to nice badge colors if not explicitly set
+const colorMap: Record<string, string> = {
+	'TRENDING': '',
+	'BREAKING': '',
+	'TECH': 'blue',
+	'TECHNOLOGY': 'blue',
+	'BISNIS': 'green',
+	'FINANCE': 'green',
+	'LIFESTYLE': 'purple',
+	'ENTERTAINMENT': 'orange',
+	'POLITIK': 'dark',
+	'WORLD': 'blue',
+	'TIPS': 'green',
+};
+
+const badgeColorClass = color ? color : (colorMap[category.toUpperCase()] || '');
+---
+
+<span class={`badge-category ${badgeColorClass}`}>
+	{category}
+</span>

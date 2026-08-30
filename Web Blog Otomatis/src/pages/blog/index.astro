@@ -1,114 +1,156 @@
 ---
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
-import Footer from '../../components/Footer.astro';
-import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import Footer from '../../components/Footer.astro';
+import PostCard from '../../components/PostCard.astro';
+import Sidebar from '../../components/Sidebar.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 
 const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
+
+const categories = ['TEKNOLOGI', 'BISNIS', 'NASIONAL', 'FINANSIAL', 'KESEHATAN', 'LIFESTYLE', 'OTOMOTIF'];
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="id">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={`Indeks Berita & Artikel - ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
 		<style>
-			main {
-				width: 960px;
+			.page-wrapper {
+				padding: 1.5rem 0 4rem 0;
 			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
+
+			.page-header-banner {
+				background-color: var(--card-bg);
+				border: 1px solid var(--border-subtle);
+				border-radius: var(--radius-sm);
+				padding: 1.75rem;
+				margin-bottom: 2rem;
+				box-shadow: var(--shadow-subtle);
 			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
+
+			.page-title {
+				font-size: 1.85rem;
+				font-weight: 900;
 				margin-bottom: 0.5rem;
-				border-radius: 12px;
+				color: var(--text-primary);
 			}
-			ul li a {
-				display: block;
+
+			.page-subtitle {
+				font-size: 0.95rem;
+				color: var(--text-secondary);
+				margin-bottom: 0;
 			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
+
+			.archive-layout {
+				display: grid;
+				grid-template-columns: 1fr 340px;
+				gap: 2.25rem;
 			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
+
+			.archive-grid {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 1.5rem;
+				margin-bottom: 2.5rem;
 			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
+
+			.pagination {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 0.5rem;
+				margin-top: 2rem;
 			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
+
+			.page-num {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				width: 38px;
+				height: 38px;
+				background-color: var(--card-bg);
+				border: 1px solid var(--border-light);
+				border-radius: var(--radius-sm);
+				font-weight: 700;
+				font-size: 0.9rem;
+				color: var(--text-primary);
+				transition: all var(--transition-fast);
 			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
+
+			.page-num:hover, .page-num.active {
+				background-color: var(--primary-red);
+				color: #ffffff;
+				border-color: var(--primary-red);
+			}
+
+			@media (max-width: 992px) {
+				.archive-layout {
+					grid-template-columns: 1fr;
 				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
+			}
+
+			@media (max-width: 600px) {
+				.archive-grid {
+					grid-template-columns: 1fr;
 				}
 			}
 		</style>
 	</head>
 	<body>
 		<Header />
-		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
+
+		<main class="page-wrapper">
+			<div class="container">
+				<!-- Breadcrumbs -->
+				<nav class="breadcrumbs" aria-label="Breadcrumb">
+					<a href="/">Home</a>
+					<span class="separator">/</span>
+					<span class="current">Indeks Berita</span>
+				</nav>
+
+				<!-- Page Header -->
+				<div class="page-header-banner">
+					<h1 class="page-title">Arsip Berita & Publikasi</h1>
+					<p class="page-subtitle">Kumpulan berita, analisis, dan artikel pilihan dari berbagai topik dan kategori terkini.</p>
+				</div>
+
+				<!-- Main Archive Layout -->
+				<div class="archive-layout">
+					<!-- Post Grid -->
+					<div class="archive-main">
+						<div class="archive-grid">
+							{posts.map((post, idx) => (
+								<PostCard
+									title={post.data.title}
+									pubDate={post.data.pubDate}
+									heroImage={post.data.heroImage}
+									slug={post.id}
+									description={post.data.description}
+									category={categories[idx % categories.length]}
+									variant="grid"
+								/>
+							))}
+						</div>
+
+						<!-- Simple Pagination Bar -->
+						<div class="pagination">
+							<a href="#" class="page-num active">1</a>
+							<a href="#" class="page-num">2</a>
+							<a href="#" class="page-num">3</a>
+							<a href="#" class="page-num" aria-label="Next Page">&rarr;</a>
+						</div>
+					</div>
+
+					<!-- Sidebar -->
+					<Sidebar posts={posts} />
+				</div>
+			</div>
 		</main>
+
 		<Footer />
 	</body>
 </html>

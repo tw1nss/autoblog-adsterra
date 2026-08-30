@@ -1,0 +1,96 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import FormattedDate from './FormattedDate.astro';
+
+interface Props {
+	posts?: CollectionEntry<'blog'>[];
+}
+
+const { posts = [] } = Astro.props;
+
+// Take up to 5 posts for trending widget
+const trendingPosts = posts.slice(0, 5);
+
+const categories = [
+	{ name: 'Nasional', count: 18 },
+	{ name: 'Teknologi', count: 24 },
+	{ name: 'Bisnis & Keuangan', count: 15 },
+	{ name: 'Gaya Hidup', count: 12 },
+	{ name: 'Otomotif & Gadget', count: 9 },
+	{ name: 'Kesehatan & Tips', count: 14 }
+];
+---
+
+<aside class="sidebar-container">
+	<!-- Social Follow Widget -->
+	<div class="sidebar-widget">
+		<h3 class="widget-title">Ikuti Kami</h3>
+		<div class="social-follow-grid">
+			<a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-follow-btn fb">
+				<span>Facebook</span>
+			</a>
+			<a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="social-follow-btn tw">
+				<span>Twitter</span>
+			</a>
+			<a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-follow-btn yt">
+				<span>YouTube</span>
+			</a>
+			<a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-follow-btn ig">
+				<span>Instagram</span>
+			</a>
+		</div>
+	</div>
+
+	<!-- Trending Posts Widget -->
+	{trendingPosts.length > 0 && (
+		<div class="sidebar-widget">
+			<h3 class="widget-title">Berita Terpopuler</h3>
+			<div class="trending-list">
+				{trendingPosts.map((post, index) => (
+					<div class="trending-numbered-item">
+						<div class="trending-number">0{index + 1}</div>
+						<div class="trending-content">
+							<h4 class="trending-title">
+								<a href={`/blog/${post.id}/`}>{post.data.title}</a>
+							</h4>
+							<div class="trending-meta">
+								<FormattedDate date={post.data.pubDate} />
+							</div>
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	)}
+
+	<!-- Ad / Banner Placeholder in Sidebar -->
+	<div class="sidebar-widget" style="padding: 1rem; text-align: center; background-color: #f8fafc; border: 1px dashed #cbd5e1;">
+		<span style="font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 0.5rem;">Sponsor / Iklan</span>
+		<div style="background: #e2e8f0; height: 250px; display: flex; align-items: center; justify-content: center; color: #64748b; font-size: 0.9rem; font-weight: 600; border-radius: 4px;">
+			Space Iklan 300x250
+		</div>
+	</div>
+
+	<!-- Categories Widget -->
+	<div class="sidebar-widget">
+		<h3 class="widget-title">Kategori Berita</h3>
+		<div class="category-list">
+			{categories.map((cat) => (
+				<a href="/blog" class="category-list-item">
+					<span>{cat.name}</span>
+					<span class="category-count">{cat.count}</span>
+				</a>
+			))}
+		</div>
+	</div>
+
+	<!-- Newsletter Widget -->
+	<div class="newsletter-box">
+		<h4>Langganan Berita</h4>
+		<p>Dapatkan rangkuman berita terpenting dan informasi terkini langsung ke email Anda setiap pagi.</p>
+		<form class="newsletter-form" onsubmit="event.preventDefault(); alert('Terima kasih telah berlangganan!');">
+			<input type="email" placeholder="Alamat email Anda..." required class="newsletter-input" />
+			<button type="submit" class="newsletter-btn">Berlangganan Sekarang</button>
+		</form>
+	</div>
+</aside>
