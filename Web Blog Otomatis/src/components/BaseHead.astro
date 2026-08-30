@@ -32,6 +32,37 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta name="generator" content={Astro.generator} />
 <meta name="google-site-verification" content="google67916b3bbc46cdf3" />
 
+<!-- OneSignal Web Push Notification SDK -->
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script is:inline>
+	window.OneSignalDeferred = window.OneSignalDeferred || [];
+	OneSignalDeferred.push(async function(OneSignal) {
+		await OneSignal.init({
+			appId: "ONESIGNAL_APP_ID_PLACEHOLDER",
+			safari_web_id: "",
+			notifyButton: {
+				enable: true,
+			},
+			promptOptions: {
+				slidedown: {
+					prompts: [
+						{
+							type: "push",
+							autoPrompt: true,
+							text: {
+								actionMessage: "Dapatkan update berita teknologi, tips coding & gadget terbaru dari Ngulikcuy.com langsung di browser Anda!",
+								acceptButton: "Izinkan Notifikasi",
+								cancelButton: "Nanti Saja"
+							}
+						}
+					]
+				}
+			},
+			allowLocalhostAsSecureOrigin: true,
+		});
+	});
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
