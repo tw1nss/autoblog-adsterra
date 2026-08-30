@@ -1,6 +1,7 @@
-# PROJECT MASTER CONTEXT: Autoblog Jamstack Adsterra
+# PROJECT MASTER CONTEXT: Autoblog Jamstack Adsterra (Ngulikcuy.com)
 
 ## 1. Arsitektur Sistem
+- **Brand/Domain:** Ngulikcuy.com (Media Ngulik Teknologi, AI & Kreasi Digital).
 - **Tujuan:** Membangun sistem auto-posting artikel SEO untuk monetisasi Adsterra.
 - **Backend/Otomasi:** Google Apps Script (GAS) dengan eksekusi Cron Job.
 - **AI Generator:** API LLM (Fokus pada instruksi tanpa halusinasi format).

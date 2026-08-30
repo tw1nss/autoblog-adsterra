@@ -18,13 +18,13 @@ const latestPosts = allPosts.slice(3, 9).length > 0 ? allPosts.slice(3, 9) : all
 const editorChoicePosts = allPosts.slice(0, 4);
 
 // Mock / derived categories for visual realism
-const categoryTags = ['Semua Berita', 'Nasional', 'Teknologi & AI', 'Finansial & Kripto', 'Bisnis Global', 'Kesehatan', 'Otomotif'];
+const categoryTags = ['Semua Artikel', 'AI & Machine Learning', 'Coding & Web Dev', 'Review Gadget', 'Tips & Tutorial', 'Bisnis Digital', 'Keamanan Siber'];
 ---
 
 <!doctype html>
 <html lang="id">
 	<head>
-		<BaseHead title={`${SITE_TITLE} - Berita Terkini & Informasi Terpercaya`} description={SITE_DESCRIPTION} />
+		<BaseHead title={`${SITE_TITLE} - Portal Ngulik Teknologi, AI, Coding & Gadget Terkini`} description={SITE_DESCRIPTION} />
 		<style>
 			.main-wrapper {
 				padding: 2rem 0 4rem 0;
@@ -209,9 +209,9 @@ const categoryTags = ['Semua Berita', 'Nasional', 'Teknologi & AI', 'Finansial &
 					<div class="main-content-column">
 						<!-- Section Header -->
 						<div class="section-header">
-							<h2 class="section-title">Berita Terkini</h2>
+							<h2 class="section-title">Artikel & Update Terkini</h2>
 							<a href="/blog" class="section-more-link">
-								Lihat Semua Arsip
+								Lihat Semua Artikel
 								<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
 							</a>
 						</div>
@@ -219,7 +219,7 @@ const categoryTags = ['Semua Berita', 'Nasional', 'Teknologi & AI', 'Finansial &
 						<!-- Latest Posts Grid -->
 						<div class="latest-posts-grid">
 							{latestPosts.map((post, index) => {
-								const categories = ['TEKNOLOGI', 'BISNIS', 'NASIONAL', 'FINANSIAL', 'KESEHATAN', 'LIFESTYLE'];
+								const categories = ['AI TECH', 'CODING', 'GADGET', 'TIPS & TRIK', 'WEB DEV', 'DIGITAL'];
 								const cat = categories[index % categories.length];
 								return (
 									<PostCard
@@ -235,9 +235,9 @@ const categoryTags = ['Semua Berita', 'Nasional', 'Teknologi & AI', 'Finansial &
 							})}
 						</div>
 
-						<!-- Section Header: Analisis & Opini -->
+						<!-- Section Header: Analisis & Tutorial -->
 						<div class="section-header">
-							<h2 class="section-title">Laporan Khusus & Analisis</h2>
+							<h2 class="section-title">Panduan & Eksplorasi Khusus</h2>
 						</div>
 
 						<div class="compact-analysis-list" style="background: var(--card-bg); padding: 1.5rem; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); margin-bottom: 2rem;">

@@ -1,6 +1,5 @@
-// Place any global data in this file.
-// You can import this data from anywhere in your site by using the `import` keyword.
-
-export const SITE_TITLE = 'PORTAL NEWS';
-export const SITE_DESCRIPTION = 'Portal berita terkini, update informasi dan tren terpopuler setiap hari.';
-
+// Global Constants - Ngulikcuy.com
+export const SITE_TITLE = 'Ngulikcuy.com';
+export const SITE_TAGLINE = 'Media Ngulik Teknologi, AI & Kreasi Digital';
+export const SITE_DESCRIPTION = 'Portal berita dan ulasan terkini seputar perkembangan teknologi, kecerdasan buatan (AI), coding, gadget, dan tips & trik digital masa kini.';
+export const SITE_URL = 'https://ngulikcuy.com';

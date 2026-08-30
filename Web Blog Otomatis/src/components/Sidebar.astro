@@ -12,12 +12,12 @@ const { posts = [] } = Astro.props;
 const trendingPosts = posts.slice(0, 5);
 
 const categories = [
-	{ name: 'Nasional', count: 18 },
-	{ name: 'Teknologi', count: 24 },
-	{ name: 'Bisnis & Keuangan', count: 15 },
-	{ name: 'Gaya Hidup', count: 12 },
-	{ name: 'Otomotif & Gadget', count: 9 },
-	{ name: 'Kesehatan & Tips', count: 14 }
+	{ name: 'AI & Machine Learning', count: 28 },
+	{ name: 'Coding & Web Dev', count: 35 },
+	{ name: 'Gadget & Hardware', count: 19 },
+	{ name: 'Tips & Tutorial Digital', count: 24 },
+	{ name: 'Bisnis & Startup Tech', count: 16 },
+	{ name: 'Keamanan Siber & Cloud', count: 12 }
 ];
 ---
 
@@ -86,11 +86,11 @@ const categories = [
 
 	<!-- Newsletter Widget -->
 	<div class="newsletter-box">
-		<h4>Langganan Berita</h4>
-		<p>Dapatkan rangkuman berita terpenting dan informasi terkini langsung ke email Anda setiap pagi.</p>
-		<form class="newsletter-form" onsubmit="event.preventDefault(); alert('Terima kasih telah berlangganan!');">
+		<h4>Newsletter Ngulik Tech</h4>
+		<p>Dapatkan rangkuman panduan coding, update AI, dan tips teknologi terpopuler langsung ke email Anda setiap minggu.</p>
+		<form class="newsletter-form" onsubmit="event.preventDefault(); alert('Terima kasih telah bergabung dengan komunitas Ngulikcuy!');">
 			<input type="email" placeholder="Alamat email Anda..." required class="newsletter-input" />
-			<button type="submit" class="newsletter-btn">Berlangganan Sekarang</button>
+			<button type="submit" class="newsletter-btn">Gabung Komunitas</button>
 		</form>
 	</div>
 </aside>

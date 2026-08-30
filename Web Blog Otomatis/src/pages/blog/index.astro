@@ -11,13 +11,13 @@ const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 
-const categories = ['TEKNOLOGI', 'BISNIS', 'NASIONAL', 'FINANSIAL', 'KESEHATAN', 'LIFESTYLE', 'OTOMOTIF'];
+const categories = ['AI & TECH', 'CODING', 'GADGET', 'TIPS & TRIK', 'WEB DEV', 'DIGITAL', 'CYBER SECURITY'];
 ---
 
 <!doctype html>
 <html lang="id">
 	<head>
-		<BaseHead title={`Indeks Berita & Artikel - ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+		<BaseHead title={`Indeks Artikel & Panduan - ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
 		<style>
 			.page-wrapper {
 				padding: 1.5rem 0 4rem 0;
@@ -109,13 +109,13 @@ const categories = ['TEKNOLOGI', 'BISNIS', 'NASIONAL', 'FINANSIAL', 'KESEHATAN',
 				<nav class="breadcrumbs" aria-label="Breadcrumb">
 					<a href="/">Home</a>
 					<span class="separator">/</span>
-					<span class="current">Indeks Berita</span>
+					<span class="current">Indeks Artikel</span>
 				</nav>
 
 				<!-- Page Header -->
 				<div class="page-header-banner">
-					<h1 class="page-title">Arsip Berita & Publikasi</h1>
-					<p class="page-subtitle">Kumpulan berita, analisis, dan artikel pilihan dari berbagai topik dan kategori terkini.</p>
+					<h1 class="page-title">Arsip Artikel & Tutorial Ngulik</h1>
+					<p class="page-subtitle">Kumpulan artikel teknologi, panduan coding, eksplorasi kecerdasan buatan, dan ulasan gadget terpopuler.</p>
 				</div>
 
 				<!-- Main Archive Layout -->
