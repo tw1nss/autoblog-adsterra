@@ -27,6 +27,33 @@ const relatedPosts = allPosts
 <html lang="id">
 	<head>
 		<BaseHead title={`${title} - Ngulikcuy.com`} description={description} />
+		<!-- Schema.org JSON-LD Structured Data for Google Rich Snippets -->
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "NewsArticle",
+			"headline": title,
+			"description": description,
+			"image": typeof heroImage === 'string' ? heroImage : "https://ngulikcuy.com/blog-placeholder-1.jpg",
+			"datePublished": pubDate.toISOString(),
+			"dateModified": (updatedDate || pubDate).toISOString(),
+			"author": {
+				"@type": "Organization",
+				"name": "Tim Redaksi Ngulikcuy",
+				"url": "https://ngulikcuy.com/about"
+			},
+			"publisher": {
+				"@type": "Organization",
+				"name": "Ngulikcuy.com",
+				"logo": {
+					"@type": "ImageObject",
+					"url": "https://ngulikcuy.com/favicon.svg"
+				}
+			},
+			"mainEntityOfPage": {
+				"@type": "WebPage",
+				"@id": Astro.url.href
+			}
+		})} />
 		<style>
 			.article-page-wrapper {
 				padding: 1.5rem 0 4rem 0;

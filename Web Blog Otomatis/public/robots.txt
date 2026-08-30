@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap Index
+Sitemap: https://ngulikcuy.com/sitemap-index.xml
